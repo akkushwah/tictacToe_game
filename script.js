@@ -43,7 +43,7 @@ function cellClicked() {
 function updateCell(cell, index) {
   options[index] = currentPlayer;
   cell.textContent = currentPlayer;
-  console.log(options);
+  // console.log(options);
 }
 
 function changePlayer() {
@@ -60,18 +60,26 @@ function checkWinner() {
     let cellA = options[condition[0]];
     let cellB = options[condition[1]];
     let cellC = options[condition[2]];
-    // console.log("cell", cellA);
+
 
     if (cellA == "" || cellB == "" || cellC == "") {
       continue;
     }
     if (cellA == cellB && cellB == cellC) {
       roundWon = true;
+      let P1 = cells[condition[0]]
+      let P2 = cells[condition[1]];
+      let P3 = cells[condition[2]];
+      P1.style.backgroundColor = "red";
+      P2.style.backgroundColor = "red";
+      P3.style.backgroundColor = "red";
       break;
     }
   }
   if (roundWon) {
-    statusText.textContent = `${currentPlayer} wins!`
+    statusText.textContent = `${currentPlayer} wins!`;
+    statusText.style.color = "green";
+    statusText.style.fontSize = "3rem";
     running = false;
   }
   else if (!options.includes("")) {
@@ -83,13 +91,16 @@ function checkWinner() {
 }
 
 function restartGame() {
-  cells.forEach(cell =>
-    cell.textContent = ""
+  cells.forEach(cell => {
+    cell.textContent = "";
+    cell.style.backgroundColor = "transparent";
+  }
   );
   currentPlayer = "X";
   options = ["", "", "", "", "", "", "", "", ""];
   statusText.textContent = `${currentPlayer} 's turn`;
   running = true;
-  console.log(options);
+  statusText.style.color = "black";
+  statusText.style.fontSize = "25px";
 }
 
